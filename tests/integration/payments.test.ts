@@ -200,7 +200,7 @@ describe("POST /payments/process", () => {
       const body = { ticketId: ticket.id, cardData: generateCreditCardData() };
 
       const response = await server.post("/payments/process").set("Authorization", `Bearer ${token}`).send(body);
-
+      console.log(ticketType.id, ticketType.id, ticketType.includesHotel)
       expect(response.status).toEqual(httpStatus.OK);
       expect(response.body).toEqual({
         id: expect.any(Number),
