@@ -6,7 +6,6 @@ import httpStatus from 'http-status';
 
 export async function listAllHotels(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
-
   try {
     const hotels = await hotelsService.getAllHotels(userId);
     return res.status(httpStatus.OK).send(hotels);
@@ -22,19 +21,24 @@ export async function listAllHotels(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function listHotelById(req: Request, res: Response) {
-  const id = Number(req.params);
+export async function listHotelById(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+
+  const hotelId = Number(req.params.hotelId);
   try {
-    if (!id) {
+    if (!hotelId) {
       throw notFoundError();
     }
-    const hotel = await hotelsService.getHotelById(id);
+    const hotel = await hotelsService.getHotelById(hotelId, userId);
 
     return res.status(httpStatus.OK).send(hotel);
   } catch (error) {
     console.log(error);
     if (error.name === 'UnauthorizedError') {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
     }
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }

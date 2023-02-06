@@ -18,8 +18,7 @@ async function getAllHotels(userId: number) {
   }
 
   const hotelExists = await hotelsRepository.getAllHotels();
-
-  if (!hotelExists) {
+  if (hotelExists.length === 0) {
     throw notFoundError();
   }
   if (ticketExists.status !== 'PAID' || ticketExists.TicketType.isRemote || !ticketExists.TicketType.includesHotel) {
