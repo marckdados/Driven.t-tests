@@ -16,12 +16,17 @@ import {
   ticketsRouter,
   paymentsRouter,
   hotelsRouter,
+<<<<<<< HEAD
 } from '@/routers';
+=======
+} from "@/routers";
+>>>>>>> 3d3368aea83aaf592faf53be06ff8159b85eccde
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
+<<<<<<< HEAD
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
   .use('/auth', authenticationRouter)
@@ -30,6 +35,16 @@ app
   .use('/tickets', ticketsRouter)
   .use('/payments', paymentsRouter)
   .use('/hotels', hotelsRouter)
+=======
+  .get("/health", (_req, res) => res.send("OK!"))
+  .use("/users", usersRouter)
+  .use("/auth", authenticationRouter)
+  .use("/event", eventsRouter)
+  .use("/enrollments", enrollmentsRouter)
+  .use("/tickets", ticketsRouter)
+  .use("/payments", paymentsRouter)
+  .use("/hotels", hotelsRouter)
+>>>>>>> 3d3368aea83aaf592faf53be06ff8159b85eccde
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
